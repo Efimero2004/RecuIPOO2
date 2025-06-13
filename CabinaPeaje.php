@@ -44,7 +44,37 @@ public function __toString()
 
 public function reciboMayorMonto($fecha){
     $colRecibos=$this->getColRecibos();
-    
+    $valorMasAlto=0;
+    $reciboMasAlto=null;
+    foreach ($colRecibos as $ObjRecibo) {
+        $fechaRecibo=$ObjRecibo->getFecha();
+        if ($fechaRecibo==$fecha) {
+            if ($valorMasAlto<$ObjRecibo->getValor()) {
+                $valorMasAlto=$ObjRecibo->getValor();
+                $reciboMasAlto=$ObjRecibo;
+            }
+        }
+        
+
+
+    }
+    return $reciboMasAlto;
+}
+
+public function totalRecaudado($fecha){
+    $colRecibos=$this->getColRecibos();
+    $TotalRecaudado=0;
+    foreach ($colRecibos as $ObjRecibo) {
+        $fechaRecibo=$ObjRecibo->getFecha();
+        if ($fechaRecibo==$fecha) {
+            
+                $TotalRecaudado+=$ObjRecibo->getValor();
+        }
+        
+
+
+    }
+    return $TotalRecaudado;
 }
 
 }
